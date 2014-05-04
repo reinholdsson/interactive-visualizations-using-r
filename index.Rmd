@@ -3,9 +3,9 @@ title: Interactive visualizations using R
 author: Thomas Reinholdsson
 mode: selfcontained
 framework: impressjs
-twitter:
-  text: "Interactive visualizations using R!"
-widgets     : [quiz] 
+github:
+  user: reinholdsson
+  repo: interactive-visualizations-using-r
 ext_widgets : {rCharts: [libraries/highcharts, libraries/nvd3]}
 
 --- #big x:0 y:0 rot:0 scale:10
