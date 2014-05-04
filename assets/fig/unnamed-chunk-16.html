@@ -1,0 +1,390 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    
+    <script src='http://d3js.org/d3.v3.min.js' type='text/javascript'></script>
+    <script src='http://d3js.org/topojson.v1.min.js' type='text/javascript'></script>
+    <script src='http://datamaps.github.io/scripts/datamaps.all.min.js' type='text/javascript'></script>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 800px;
+      height: 400px;
+    }  
+    </style>
+    
+  </head>
+  <body >
+    
+    <div id = 'chartc6ae1e0a563e' class = 'rChart datamaps'></div>    
+    <script id='popup-template' type='text/x-handlebars-template'>
+    
+</script>
+<script>
+  var chartParams = {
+ "dom": "chartc6ae1e0a563e",
+"width":    800,
+"height":    400,
+"scope": "usa",
+"fills": {
+ "(122,247]": "#F1EEF6",
+"(247,297]": "#D7B5D8",
+"(297,384]": "#DF65B0",
+"(384,493]": "#DD1C77",
+"(493,661]": "#980043" 
+},
+"legend": true,
+"labels": true,
+"data": {
+ "AK": {
+ "Year": 2010,
+"State": "AK",
+"Crime":  638.8,
+"fillKey": "(493,661]" 
+},
+"AL": {
+ "Year": 2010,
+"State": "AL",
+"Crime":  377.8,
+"fillKey": "(297,384]" 
+},
+"AR": {
+ "Year": 2010,
+"State": "AR",
+"Crime":  505.3,
+"fillKey": "(493,661]" 
+},
+"AZ": {
+ "Year": 2010,
+"State": "AZ",
+"Crime":  408.1,
+"fillKey": "(384,493]" 
+},
+"CA": {
+ "Year": 2010,
+"State": "CA",
+"Crime":  440.6,
+"fillKey": "(384,493]" 
+},
+"CO": {
+ "Year": 2010,
+"State": "CO",
+"Crime":  320.8,
+"fillKey": "(297,384]" 
+},
+"CT": {
+ "Year": 2010,
+"State": "CT",
+"Crime":  281.4,
+"fillKey": "(247,297]" 
+},
+"DE": {
+ "Year": 2010,
+"State": "DE",
+"Crime":  620.9,
+"fillKey": "(493,661]" 
+},
+"FL": {
+ "Year": 2010,
+"State": "FL",
+"Crime":  542.4,
+"fillKey": "(493,661]" 
+},
+"GA": {
+ "Year": 2010,
+"State": "GA",
+"Crime":  403.3,
+"fillKey": "(384,493]" 
+},
+"HI": {
+ "Year": 2010,
+"State": "HI",
+"Crime":  262.7,
+"fillKey": "(247,297]" 
+},
+"IA": {
+ "Year": 2010,
+"State": "IA",
+"Crime":  273.5,
+"fillKey": "(247,297]" 
+},
+"ID": {
+ "Year": 2010,
+"State": "ID",
+"Crime":    221,
+"fillKey": "(122,247]" 
+},
+"IL": {
+ "Year": 2010,
+"State": "IL",
+"Crime":  435.2,
+"fillKey": "(384,493]" 
+},
+"IN": {
+ "Year": 2010,
+"State": "IN",
+"Crime":  314.5,
+"fillKey": "(297,384]" 
+},
+"KS": {
+ "Year": 2010,
+"State": "KS",
+"Crime":  369.1,
+"fillKey": "(297,384]" 
+},
+"KY": {
+ "Year": 2010,
+"State": "KY",
+"Crime":  242.6,
+"fillKey": "(122,247]" 
+},
+"LA": {
+ "Year": 2010,
+"State": "LA",
+"Crime":    549,
+"fillKey": "(493,661]" 
+},
+"MA": {
+ "Year": 2010,
+"State": "MA",
+"Crime":  466.6,
+"fillKey": "(384,493]" 
+},
+"MD": {
+ "Year": 2010,
+"State": "MD",
+"Crime":  547.7,
+"fillKey": "(493,661]" 
+},
+"ME": {
+ "Year": 2010,
+"State": "ME",
+"Crime":    122,
+"fillKey": null 
+},
+"MI": {
+ "Year": 2010,
+"State": "MI",
+"Crime":  490.3,
+"fillKey": "(384,493]" 
+},
+"MN": {
+ "Year": 2010,
+"State": "MN",
+"Crime":    236,
+"fillKey": "(122,247]" 
+},
+"MO": {
+ "Year": 2010,
+"State": "MO",
+"Crime":    455,
+"fillKey": "(384,493]" 
+},
+"MS": {
+ "Year": 2010,
+"State": "MS",
+"Crime":  269.7,
+"fillKey": "(247,297]" 
+},
+"MT": {
+ "Year": 2010,
+"State": "MT",
+"Crime":  272.2,
+"fillKey": "(247,297]" 
+},
+"NC": {
+ "Year": 2010,
+"State": "NC",
+"Crime":  363.4,
+"fillKey": "(297,384]" 
+},
+"ND": {
+ "Year": 2010,
+"State": "ND",
+"Crime":    225,
+"fillKey": "(122,247]" 
+},
+"NE": {
+ "Year": 2010,
+"State": "NE",
+"Crime":  279.5,
+"fillKey": "(247,297]" 
+},
+"NH": {
+ "Year": 2010,
+"State": "NH",
+"Crime":    167,
+"fillKey": "(122,247]" 
+},
+"NJ": {
+ "Year": 2010,
+"State": "NJ",
+"Crime":  307.7,
+"fillKey": "(297,384]" 
+},
+"NM": {
+ "Year": 2010,
+"State": "NM",
+"Crime":  588.9,
+"fillKey": "(493,661]" 
+},
+"NV": {
+ "Year": 2010,
+"State": "NV",
+"Crime":  660.6,
+"fillKey": "(493,661]" 
+},
+"NY": {
+ "Year": 2010,
+"State": "NY",
+"Crime":  392.1,
+"fillKey": "(384,493]" 
+},
+"OH": {
+ "Year": 2010,
+"State": "OH",
+"Crime":  315.2,
+"fillKey": "(297,384]" 
+},
+"OK": {
+ "Year": 2010,
+"State": "OK",
+"Crime":  479.5,
+"fillKey": "(384,493]" 
+},
+"OR": {
+ "Year": 2010,
+"State": "OR",
+"Crime":    252,
+"fillKey": "(247,297]" 
+},
+"PA": {
+ "Year": 2010,
+"State": "PA",
+"Crime":  366.2,
+"fillKey": "(297,384]" 
+},
+"RI": {
+ "Year": 2010,
+"State": "RI",
+"Crime":  256.6,
+"fillKey": "(247,297]" 
+},
+"SC": {
+ "Year": 2010,
+"State": "SC",
+"Crime":  597.7,
+"fillKey": "(493,661]" 
+},
+"SD": {
+ "Year": 2010,
+"State": "SD",
+"Crime":  268.5,
+"fillKey": "(247,297]" 
+},
+"TN": {
+ "Year": 2010,
+"State": "TN",
+"Crime":  613.3,
+"fillKey": "(493,661]" 
+},
+"TX": {
+ "Year": 2010,
+"State": "TX",
+"Crime":  450.3,
+"fillKey": "(384,493]" 
+},
+"UT": {
+ "Year": 2010,
+"State": "UT",
+"Crime":  212.7,
+"fillKey": "(122,247]" 
+},
+"VA": {
+ "Year": 2010,
+"State": "VA",
+"Crime":  213.6,
+"fillKey": "(122,247]" 
+},
+"VT": {
+ "Year": 2010,
+"State": "VT",
+"Crime":  130.2,
+"fillKey": "(122,247]" 
+},
+"WA": {
+ "Year": 2010,
+"State": "WA",
+"Crime":  313.8,
+"fillKey": "(297,384]" 
+},
+"WI": {
+ "Year": 2010,
+"State": "WI",
+"Crime":  248.7,
+"fillKey": "(247,297]" 
+},
+"WV": {
+ "Year": 2010,
+"State": "WV",
+"Crime":  314.6,
+"fillKey": "(297,384]" 
+},
+"WY": {
+ "Year": 2010,
+"State": "WY",
+"Crime":  195.9,
+"fillKey": "(122,247]" 
+} 
+},
+"id": "chartc6ae1e0a563e" 
+}
+  chartParams.element = document.getElementById('chartc6ae1e0a563e')
+  
+  
+  var mapchartc6ae1e0a563e = new Datamap(chartParams);
+  
+  
+    
+  // draw a bubble map if specified
+  if (chartParams.bubbles) {
+    var bubbles = chartParams.bubbles
+    mapchartc6ae1e0a563e.bubbles(bubbles)
+  }
+  
+  if (chartParams.labels){
+    mapchartc6ae1e0a563e.labels()
+  }
+  
+  if (chartParams.legend){
+    mapchartc6ae1e0a563e.legend()
+  }
+  
+  setProjection = function( element, options ) {
+    var projection, path;
+ 
+      projection = d3.geo.albersUsa()
+        .scale(element.offsetWidth)
+        .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+ 
+    path = d3.geo.path()
+      .projection( projection );
+ 
+    return {path: path, projection: projection};
+  }
+</script>
+
+<style>
+.datamaps {
+  position: relative;
+}
+</style>
+    
+    <script></script>    
+  </body>
+</html>

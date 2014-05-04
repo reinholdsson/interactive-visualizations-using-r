@@ -1,0 +1,73 @@
+<!doctype HTML>
+<meta charset = 'utf-8'>
+<html>
+  <head>
+    <link rel='stylesheet' href='http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.css'>
+    
+    <script src='http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js' type='text/javascript'></script>
+    <script src='https://rawgithub.com/leaflet-extras/leaflet-providers/gh-pages/leaflet-providers.js' type='text/javascript'></script>
+    <script src='http://harrywood.co.uk/maps/examples/leaflet/leaflet-plugins/layer/vector/KML.js' type='text/javascript'></script>
+    
+    <style>
+    .rChart {
+      display: block;
+      margin-left: auto; 
+      margin-right: auto;
+      width: 800px;
+      height: 300px;
+    }  
+    </style>
+    
+  </head>
+  <body >
+    
+    <div id = 'chartc6ae48ea8b99' class = 'rChart leaflet'></div>    
+    <script>
+  var spec = {
+ "dom": "chartc6ae48ea8b99",
+"width":            800,
+"height":            300,
+"urlTemplate": "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+"layerOpts": {
+ "attribution": "Map data<a href=\"http://openstreetmap.org\">OpenStreetMap</a>\n         contributors, Imagery<a href=\"http://mapbox.com\">MapBox</a>" 
+},
+"center": [     29.7632836,    -95.3632715 ],
+"zoom":             10,
+"provider": "MapQuestOpen.OSM",
+"id": "chartc6ae48ea8b99" 
+}
+
+  var map = L.map(spec.dom, spec.mapOpts)
+  
+    map.setView(spec.center, spec.zoom);
+
+    if (spec.provider){
+      L.tileLayer.provider(spec.provider).addTo(map)    
+    } else {
+		  L.tileLayer(spec.urlTemplate, spec.layerOpts).addTo(map)
+    }
+     
+    
+    
+    
+    
+    
+    if (spec.circle2){
+      for (var c in spec.circle2){
+        var circle = L.circle(c.center, c.radius, c.opts)
+         .addTo(map);
+      }
+    }
+    
+    
+    
+    
+    
+   
+   
+   
+</script>
+    
+    <script></script>    
+  </body>
+</html>

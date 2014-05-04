@@ -1,0 +1,617 @@
+---
+title: Interactive visualizations using R
+author: Thomas Reinholdsson
+mode: selfcontained
+framework: impressjs
+twitter:
+  text: "Interactive visualizations using R!"
+widgets     : [quiz] 
+ext_widgets : {rCharts: [libraries/highcharts, libraries/nvd3]}
+
+--- #big x:0 y:0 rot:0 scale:10
+
+```{r setup, message = F, echo = F, cache=F}
+# runDeck(".")
+library(rCharts)
+library(rMaps)
+library(lubridate)
+library(googleVis)
+options(rcharts.show.mode = "iframe")
+knitr::opts_chunk$set(comment = NA, results = 'asis', tidy = F, message = F, cache = F)
+```
+
+<style>
+  body {
+    background: radial-gradient(rgb(255, 255, 255), rgb(214, 236, 248));
+  }
+  h1 { font-size: 100%; }
+  h2 { font-size: 80%; }
+  h3 { font-size: 60%; }
+  h4 { font-size: 50%; }
+  pre code {
+    display: block;
+    background: white;
+    color: #4d4d4c;
+    font-family: Menlo, Monaco, Consolas, monospace;
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 20%;
+}
+</style>
+
+Interactive visualizations<br>using <b>R</b>
+
+Thomas Reinholdsson
+
+--- x:0 y:4000 rot:0 scale:4
+
+# **rCharts**
+
+## *... an R package to create, customize and publish interactive javascript visualizations from R using a familiar lattice style plotting interface*
+
+#### By: Ramnathv Vaidyanathan (aut, cre), Kenton Russel (ctb), Thomas Reinholdsson (ctb)
+
+--- x:-2000 y:5000 rot:0 scale:1
+
+## Polychart
+
+```{r, results='asis', echo = T}
+a <- rPlot(mpg ~ wt | am + vs, data = mtcars, type = 'point', color = 'gear')
+a
+```
+
+--- x:-1000 y:5000 rot:0 scale:1
+
+## Morris
+
+```{r, results='asis', echo = T}
+data(economics, package = 'ggplot2')
+econ <- transform(economics, date = as.character(date))
+a <- mPlot(x = 'date', y = c('psavert', 'uempmed'), type = 'Line',
+  data = econ)
+a$set(pointSize = 0, lineWidth = 1)
+a
+```
+
+--- x:0 y:5000 rot:0 scale:1
+
+## NVD3
+
+```{r, results='asis', echo = T}
+hair_eye_male <- subset(as.data.frame(HairEyeColor), Sex == "Male")
+a <- nPlot(Freq ~ Hair, group = "Eye", data = hair_eye_male, 
+  type = 'multiBarChart')
+a
+```
+
+--- x:1000 y:5000 rot:0 scale:1
+
+## xCharts
+
+```{r, results='asis', echo = T}
+require(reshape2)
+uspexp <- melt(USPersonalExpenditure)
+names(uspexp)[1:2] = c('category', 'year')
+a <- xPlot(value ~ year, group = 'category', data = uspexp, 
+  type = 'line-dotted')
+a
+```
+
+
+--- x:2000 y:5000 rot:0 scale:1
+
+## Rickshaw
+
+```{r, results='asis', echo = T}
+usp = reshape2::melt(USPersonalExpenditure)
+a <- Rickshaw$new()
+a$layer(value ~ Var2, group = 'Var1', data = usp, type = 'area')
+a$set(width = 600, height = 350)
+a
+```
+
+
+--- x:2500 y:-3200 scale:1
+
+# rCharts API
+
+<br>
+
+## Lattice function
+
+```{r, eval=F}
+library(rCharts)
+hPlot(Pulse ~ Height, data = MASS::survey, type = "scatter", group = "Exer")
+```
+
+<br>
+
+## Chart methods
+
+```{r, eval=F}
+library(rCharts)
+a <- Highcharts$new()
+a$chart(type = "line")
+a$title(text = "Monthly Average Rainfall")
+...
+```
+
+#### ... similar to the original JS chart api:s
+
+```
+highcharts({
+  chart: {
+    type: 'column'
+  },
+  title: {
+      text: 'Monthly Average Rainfall'
+  },
+  ...
+```
+
+--- x:3500 y:-3200 scale:1
+
+Why JavaScript?
+
+#### All included JavaScript libraries uses JSON to set chart properties, add data, theme settings, etc. 
+
+#### Thanks to RJSONIO/rjson it's easy to convert between R lists and JSON.
+
+Package structure
+### - Layouts
+### - JavaScript dependencies
+### - R code (ReferenceClasses)
+
+--- x:3500 y:-2500 scale:1
+
+# Layouts (template)
+
+#### inst/libraries/highcharts/layout/chart.html
+
+```
+<script type='text/javascript'>
+    (function($){
+        $(function () {
+            var chart = new Highcharts.Chart({{{ chartParams }}});
+        });
+    })(jQuery);
+</script>
+
+```
+
+--- x:3500 y:-2000 scale:1
+
+# JavaScript dependencies
+
+#### inst/libraries/highcharts/config.yml
+
+```
+highcharts:
+  jshead:
+    - js/jquery-1.9.1.min.js
+    - js/highcharts.js
+    - js/highcharts-more.js
+    - js/exporting.js
+  cdn:
+    jshead:
+      - "http://code.jquery.com/jquery-1.9.1.min.js"
+      - "http://code.highcharts.com/highcharts.js"
+      - "http://code.highcharts.com/highcharts-more.js"
+      - "http://code.highcharts.com/modules/exporting.js"
+```
+
+--- x:3500 y:-1500 scale:1
+
+# R code (ReferenceClasses)
+
+#### R/Highcharts.R
+
+```{r, eval=F}
+# Class defintion
+
+Highcharts <- setRefClass("Highcharts", contains = "rCharts", methods = list(
+    initialize = function() {
+      callSuper(); lib <<- 'highcharts'; LIB <<- get_lib(lib)
+      params <<- c(params, list(
+        ...
+      )
+    )
+  },
+  
+  ...
+  
+  # Wrapper methods
+  
+  title = function(..., replace = T) {
+    params$title <<- setSpec(params$title, ..., replace = replace)
+  },
+  
+  tooltip = function(..., replace = T) {
+    params$tooltip <<- setSpec(params$tooltip, ..., replace = replace)
+  },
+  
+  xAxis = function(..., replace = T) {
+    params$xAxis <<- setListSpec(params$xAxis, ..., replace = replace)
+  },
+  
+  ...
+```
+
+--- x:-4000 y:-2500 scale:4
+
+## rCharts: Highcharts
+
+```{r, results='asis', echo = T}
+a <- Highcharts$new()
+a$chart(type = "spline", backgroundColor = NULL)
+a$series(data = c(1, 3, 2, 4, 5, 4, 6, 2, 3, 5, NA), dashStyle = "longdash")
+a$series(data = c(NA, 4, 1, 3, 4, 2, 9, 1, 2, 3, 1), dashStyle = "shortdot")
+a$legend(symbolWidth = 80)
+a$set(height = 250)
+a
+```
+
+--- x:-5000 y:-1500 scale:1
+
+## Custom Themes
+
+```{r, results='asis', echo = 4:7}
+data <- read.csv2("data/ledamot.csv")
+a <- rCharts:::Highcharts$new()
+a$data(x = data$namn, y = data$V1)
+a$chart(type = "bar", backgroundColor = NULL)
+a$xAxis(title = list(enabled = F), type = "category", lineWidth = 0, minorTickLength = 0, tickLength = 0)
+a$yAxis(title = list(enabled = F), labels = list(enabled = F), lineWidth = 0, gridLineWidth = 0, minorTickLength = 0, tickLength = 0)
+a$legend(enabled = F)
+a$tooltip(useHTML = T, formatter = "#! function() { return this.point.y; } !#")
+a
+```
+
+--- x:-4000 y:-1500 scale:1
+
+## Custom Tooltips
+
+```{r, results='asis', echo = 11}
+url <- "data/personlista.json"
+json <- readLines(url, warn = FALSE)
+persons <- fromJSON(json)$personlista
+prepareData <- function(lst, fun) {
+  res <- lapply(lst, fun)
+  splitVector <- sapply(res, function(p) p$color)
+  res <- split(res, splitVector)
+  res <- lapply(res, function(x) {
+    list(data = x, name = x[[1]]$color)
+  })
+  names(res) <- NULL
+  return(res)
+}
+fun <- function(p) {
+  list(
+    x = year(Sys.Date())-p$fodd_ar, 
+    y = 1, 
+    color = p$parti,
+    text = paste(p$tilltalsnamn, p$efternamn),
+    url = p$bild_url_80,
+    valkrets = p$valkrets
+  )
+}
+data <- prepareData(persons, fun)
+a <- Highcharts$new()
+a$chart(type = "scatter", backgroundColor = NULL)
+a$series(data)
+a$plotOptions(
+  scatter = list(
+    marker = list(
+      symbol = "circle", 
+      radius = 3
+    )
+  ),
+  series = list(stacking = "normal")
+)
+a$tooltip(
+  useHTML = T,
+  formatter = "#! function() {
+    return '<table height=84><tr><td>'
+    + '<img src=\"'
+    + this.point.url
+    + '\" height=80 width=60></td><td>'
+    + this.point.text + '<br><br>' + this.point.x + ' years<br>' + this.point.valkrets
+    + '</td></tr></table>';} !#"
+)
+a$xAxis(title = list(enabled = F), lineWidth = 0, minorTickLength = 0, tickLength = 0)
+a$yAxis(title = list(enabled = F), labels = list(enabled = F), lineWidth = 0, gridLineWidth = 0, minorTickLength = 0, tickLength = 0)
+a$legend(enabled = F)
+a$title(text = "Members of the Parliament 2013")
+a
+```
+
+--- x:-3000 y:-1500 scale:1
+
+## Clickable Points
+
+```{r, results='asis', echo = 12}
+movieTable <- read.table("data/movieTable", header = T)
+
+# Split the list into categories
+movieSeries <- lapply(split(movieTable, movieTable$category), function(x) {
+    res <- lapply(split(x, rownames(x)), as.list)
+    names(res) <- NULL
+    return(res)
+})
+
+# Create the chart object
+a <- rCharts::Highcharts$new()
+invisible(sapply(movieSeries, function(x) {
+        a$series(data = x, type = "scatter", name = x[[1]]$category)
+    }
+))
+
+a$chart(backgroundColor = NULL)
+
+a$plotOptions(
+  scatter = list(
+    cursor = "pointer", 
+    point = list(
+      events = list(
+        click = "#! function() { window.open(this.options.url); } !#")), 
+    marker = list(
+      symbol = "circle", 
+      radius = 5
+    )
+  )
+)
+
+a$xAxis(title = list(text = "Critics Score"), labels = list(format = "{value} %"))
+a$yAxis(title = list(text = "Audience Score"), labels = list(format = "{value} %"))
+
+a$tooltip(useHTML = T, formatter = "#! function() { return this.point.name; } !#")
+
+a$colors(
+  'rgba(223, 83, 83, .75)', 
+  'rgba(60, 179, 113, .75)', 
+  'rgba(238, 130, 238, .75)', 
+  'rgba(30, 144, 255, .75)', 
+  'rgba(139, 139, 131, .75)'
+)
+
+a$legend(
+  align = 'right', 
+  verticalAlign = 'middle', 
+  layout = 'vertical', 
+  title = list(text = "M-Rating")
+)
+
+a$title(text = "Top 50 DVD Rentals")
+a$subtitle(text = "Retrieved using the Rotten Tomatoes API")
+a
+```
+
+--- x:5400 y:2200 scale:2
+
+## Publish on github
+
+```{r, eval=F}
+a <- create_chart("code.r")
+a$publish("My Chart", host = "gist")
+# Please enter your github username: reinholdsson
+# Please enter your github password: ************
+# Your gist has been published
+# View chart at http://rcharts.github.io/viewer/?11519927
+```
+
+<br>
+
+<iframe id='iframe_id' src = 'http://rcharts.io/viewer/?11519927' height='450px' width='1000px'></iframe>
+
+--- x:3200 y:3000 scale:2
+
+## Shiny
+
+#### **server.r**: *output$chart <- renderChart({ ... }})*
+
+#### **ui.r**: *chartOutput("chart", "highcharts")*
+
+<iframe id='iframe_id' src = 'http://glimmer.rstudio.com/reinholdsson/shiny-dashboard/' height='550px' width='800px'></iframe>
+
+--- x:5400 y:3800 scale:2
+
+## Highcharts: Shiny Input Binding
+
+#### server.r
+
+```{r, eval = F}
+library(shiny)
+library(rCharts)
+shinyServer(function(input, output) {
+  output$text <- renderText({
+    sprintf("You have clicked on %s.", input$click$capital)
+  })
+  output$chart <- renderChart({
+    a <- Highcharts$new()
+    a$series(data = list(
+        list(x = 0, y = 40, capital = "Stockholm"),
+        list(x = 1, y = 50, capital = "Copenhagen"),
+        list(x = 2, y = 60, capital = "Oslo")
+      ), type = "bar")
+    a$plotOptions(
+      bar = list(
+        cursor = "pointer", 
+        point = list(
+          events = list(
+            
+            click = "#! function() { Shiny.onInputChange('click', {capital: this.capital})} !#"
+            
+    ))))
+    a$addParams(dom = "chart")
+    return(a)
+  })
+})
+```
+
+#### ui.r
+
+```{r, eval = F}
+library(shiny)
+library(rCharts)
+shinyUI(bootstrapPage(chartOutput("chart", "highcharts"), textOutput("text")))
+```
+
+--- x:-4500 y:0 scale:4
+
+# **rMaps**
+
+### *... an R package to create, customize and publish interactive maps from R. It supports multiple mapping libraries, including leaflet, datamaps and crosslet.*
+
+#### By: Ramnath Vaidyanathan (aut, cre)
+
+--- x:-5500 y:1000 scale:1
+
+## Datamaps
+
+```{r, results='asis', echo = T}
+ichoropleth(
+  Crime ~ State,
+  data = subset(violent_crime, Year == 2010),
+  pal = 'PuRd'
+)
+```
+
+--- x:-4500 y:1000 scale:1
+
+## Animations with AngularJS
+
+```{r, results='asis', echo = T}
+ichoropleth(
+  Crime ~ State,
+  data = violent_crime,
+  animate = 'Year'
+)
+```
+
+#### Use argument `play = T` to add a play button.
+
+--- x:-3500 y:1000 scale:1
+
+## Leaflet
+
+```{r, results='asis', echo = F}
+library(RColorBrewer)
+x <- readRDS("data/sample_sthlm.rds")
+x$popupContent <- x$location.address.streetAddress
+x$price_per_m2 <- x$soldPrice/x$livingArea
+x$fillColor = cut(
+  x$price_per_m2, 
+  breaks = quantile(x$price_per_m2), 
+  labels = brewer.pal(4, 'RdYlGn')[4:1],  # reversed
+  include.lowest = T
+)
+
+data <- rCharts:::toGeoJSON(
+  split(x, 1:nrow(x)),
+  lat = "location.position.latitude",
+  lon = "location.position.longitude"
+)
+```
+
+```{r}
+# data <- ...
+a <- rMaps:::Leaflet$new()
+a$setView(c(59.34201, 18.09503), zoom = 13)
+a$geoJson(data,
+  onEachFeature = '#! function(feature, layer){
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+    }
+  } !#',
+  pointToLayer =  "#! function(feature, latlng){
+    return L.circleMarker(latlng, {
+      radius: 6,
+      fillColor: feature.properties.fillColor,
+      weight: 1,
+      fillOpacity: 0.8
+    })
+  }!#"
+)
+a$set(height = 300)
+a
+```
+
+--- x:4500 y:0 scale:4
+
+# **googleVis**
+
+## *... an R package providing an interface between R and the Google Chart Tools*
+
+### By: Markus Gesmann (aut, cre), Diego de Castillo (aut), Joe Cheng (ctb)
+
+--- x:4000 y:1000 scale:1
+
+## Sankey
+
+```{r, echo=T}
+dat <- data.frame(From=c(rep("A",3), rep("B", 3)), 
+                  To=c(rep(c("X", "Y", "Z"),2)),
+                  Weight=c(5,7,6,2,9,4))
+a <- gvisSankey(dat, from="From", to="To", weight="Weight",
+                options=list(height=250))
+```
+
+```{r, results='asis', echo=F}
+print(a, tag = 'chart')
+```
+
+--- x:5000 y:1100 scale:1
+
+## Calendar
+
+```{r, echo=T}
+a <- gvisCalendar(Cairo, datevar="Date",
+                  numvar="Temp",
+                  options=list(calendar="{ cellSize: 10 }"))
+```
+
+```{r, results='asis', echo=F}
+print(a, tag = 'chart')
+```
+
+--- x:-5400 y:2200 scale:2
+
+# *qtlcharts*
+
+#### By: Karl Broman
+
+```{r, results='asis', echo = F}
+library(qtlcharts)
+file <- 'assets/fig/qtlcharts.html'
+invisible({
+  if (file.exists(file)) file.remove(file)
+})
+
+n <- 101
+x <- y <- seq(-2, 2, len=n)
+z <- matrix(ncol=n, nrow=n)
+for(i in seq(along=x))
+  for(j in seq(along=y))
+    z[i,j] <- x[i]*y[j]*exp(-x[i]^2 - y[j]^2)
+
+a <- iheatmap(z, x, y, onefile=T, file=file, title = NULL, caption = NULL, chartOpts = list(htop = 100, hbot = 100, wleft = 240, wright = 240))
+
+cat(sprintf("<iframe src='%s' scrolling='no' seamless class='rChart polycharts 'id=iframe-qtlcharts></iframe>", a))
+```
+
+--- x:-3200 y:3000 scale:2
+
+# **ggvis**
+
+### *... implements a interactive grammar of graphics, taking the best parts of ggplot2, combining them with shiny's reactive framework and drawing web graphics using vega.*
+
+#### By: RStudio, Inc.
+
+<br>
+
+![](https://dl.dropboxusercontent.com/u/2904328/ggvis.png)
+
+--- x:0 y:-2900 rot:70 z:-100 rotx:-40 roty:-10 scale:3
+
+# **Thank you!**

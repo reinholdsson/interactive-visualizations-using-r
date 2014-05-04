@@ -1,0 +1,340 @@
+<!doctype HTML>
+<html>
+  <head>
+    <link rel='stylesheet' href='http://cdn.strategiqcommerce.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.css'>
+    <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css'>
+    
+    <script src='http://d3js.org/d3.v2.min.js' type='text/javascript'></script>
+    <script src='http://cdn.strategiqcommerce.com/ajax/libs/rickshaw/1.2.1/rickshaw.min.js' type='text/javascript'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js' type='text/javascript'></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js' type='text/javascript'></script>
+    
+    <style>
+    .chart_container {
+        position: relative;
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .rChart {
+        display: inline-block;
+        margin-left: 40px;
+    }
+   .yAxis {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 40px;
+   }
+   .legend {
+        position: absolute;
+        top: 0;
+        right: -160px;
+        vertical-align: top;
+    }
+    .slider {
+      margin-left: 40px;
+      margin-top: 12px;
+    }
+    </style>
+    
+  </head>
+  <body>
+    <div class='chart_container'>
+      <div id='yAxischartc6ae2d6bd7b5' class='yAxis'></div>
+      <div id='chartc6ae2d6bd7b5' class='rChart rickshaw'></div>
+      <div id='xAxischartc6ae2d6bd7b5' class='xAxis'></div>
+      <div id='legendchartc6ae2d6bd7b5' class='legend'></div>
+      <div id='sliderchartc6ae2d6bd7b5' class='slider'></div>
+    </div>
+    
+    <script type='text/javascript'> 
+  var palette = new Rickshaw.Color.Palette({ scheme: "colorwheel" });
+  var chartParams = {
+ "dom": "chartc6ae2d6bd7b5",
+"width":            600,
+"height":            350,
+"scheme": "colorwheel",
+"series": [
+ {
+ "data": [
+ {
+ "x": 1940,
+"y":           22.2 
+},
+{
+ "x": 1945,
+"y":           44.5 
+},
+{
+ "x": 1950,
+"y":           59.6 
+},
+{
+ "x": 1955,
+"y":           73.2 
+},
+{
+ "x": 1960,
+"y":           86.8 
+} 
+],
+"name": "Food and Tobacco",
+"info": {
+ "1940": {
+ "Var1": "Food and Tobacco",
+"Var2": 1940 
+},
+"1945": {
+ "Var1": "Food and Tobacco",
+"Var2": 1945 
+},
+"1950": {
+ "Var1": "Food and Tobacco",
+"Var2": 1950 
+},
+"1955": {
+ "Var1": "Food and Tobacco",
+"Var2": 1955 
+},
+"1960": {
+ "Var1": "Food and Tobacco",
+"Var2": 1960 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x": 1940,
+"y":           10.5 
+},
+{
+ "x": 1945,
+"y":           15.5 
+},
+{
+ "x": 1950,
+"y":             29 
+},
+{
+ "x": 1955,
+"y":           36.5 
+},
+{
+ "x": 1960,
+"y":           46.2 
+} 
+],
+"name": "Household Operation",
+"info": {
+ "1940": {
+ "Var1": "Household Operation",
+"Var2": 1940 
+},
+"1945": {
+ "Var1": "Household Operation",
+"Var2": 1945 
+},
+"1950": {
+ "Var1": "Household Operation",
+"Var2": 1950 
+},
+"1955": {
+ "Var1": "Household Operation",
+"Var2": 1955 
+},
+"1960": {
+ "Var1": "Household Operation",
+"Var2": 1960 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x": 1940,
+"y":           3.53 
+},
+{
+ "x": 1945,
+"y":           5.76 
+},
+{
+ "x": 1950,
+"y":           9.71 
+},
+{
+ "x": 1955,
+"y":             14 
+},
+{
+ "x": 1960,
+"y":           21.1 
+} 
+],
+"name": "Medical and Health",
+"info": {
+ "1940": {
+ "Var1": "Medical and Health",
+"Var2": 1940 
+},
+"1945": {
+ "Var1": "Medical and Health",
+"Var2": 1945 
+},
+"1950": {
+ "Var1": "Medical and Health",
+"Var2": 1950 
+},
+"1955": {
+ "Var1": "Medical and Health",
+"Var2": 1955 
+},
+"1960": {
+ "Var1": "Medical and Health",
+"Var2": 1960 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x": 1940,
+"y":           1.04 
+},
+{
+ "x": 1945,
+"y":           1.98 
+},
+{
+ "x": 1950,
+"y":           2.45 
+},
+{
+ "x": 1955,
+"y":            3.4 
+},
+{
+ "x": 1960,
+"y":            5.4 
+} 
+],
+"name": "Personal Care",
+"info": {
+ "1940": {
+ "Var1": "Personal Care",
+"Var2": 1940 
+},
+"1945": {
+ "Var1": "Personal Care",
+"Var2": 1945 
+},
+"1950": {
+ "Var1": "Personal Care",
+"Var2": 1950 
+},
+"1955": {
+ "Var1": "Personal Care",
+"Var2": 1955 
+},
+"1960": {
+ "Var1": "Personal Care",
+"Var2": 1960 
+} 
+},
+"color":  palette.color()  
+},
+{
+ "data": [
+ {
+ "x": 1940,
+"y":          0.341 
+},
+{
+ "x": 1945,
+"y":          0.974 
+},
+{
+ "x": 1950,
+"y":            1.8 
+},
+{
+ "x": 1955,
+"y":            2.6 
+},
+{
+ "x": 1960,
+"y":           3.64 
+} 
+],
+"name": "Private Education",
+"info": {
+ "1940": {
+ "Var1": "Private Education",
+"Var2": 1940 
+},
+"1945": {
+ "Var1": "Private Education",
+"Var2": 1945 
+},
+"1950": {
+ "Var1": "Private Education",
+"Var2": 1950 
+},
+"1955": {
+ "Var1": "Private Education",
+"Var2": 1955 
+},
+"1960": {
+ "Var1": "Private Education",
+"Var2": 1960 
+} 
+},
+"color":  palette.color()  
+} 
+],
+"renderer": "area",
+"id": "chartc6ae2d6bd7b5" 
+}
+  chartParams.element = document.querySelector('#chartc6ae2d6bd7b5')
+  
+  var graphchartc6ae2d6bd7b5 = new Rickshaw.Graph(chartParams);
+  
+  graphchartc6ae2d6bd7b5.render();
+  
+  var xAxischartc6ae2d6bd7b5 = new Rickshaw.Graph.Axis.Time({
+ "graph":  graphchartc6ae2d6bd7b5  
+})
+var yAxischartc6ae2d6bd7b5 = new Rickshaw.Graph.Axis.Y({
+ "graph":  graphchartc6ae2d6bd7b5 ,
+"orientation": "left",
+"element":  document.getElementById('yAxischartc6ae2d6bd7b5') ,
+"tickFormat":  Rickshaw.Fixtures.Number.formatKMBT  
+})
+graphchartc6ae2d6bd7b5.render()
+var legendchartc6ae2d6bd7b5 = new Rickshaw.Graph.Legend({
+ "graph":  graphchartc6ae2d6bd7b5 ,
+"element":  document.getElementById('legendchartc6ae2d6bd7b5')  
+})
+var shelvingchartc6ae2d6bd7b5 = new Rickshaw.Graph.Behavior.Series.Toggle({
+ "graph":  graphchartc6ae2d6bd7b5 ,
+"legend":  legendchartc6ae2d6bd7b5  
+})
+var hoverDetailchartc6ae2d6bd7b5 = new Rickshaw.Graph.HoverDetail({
+ "graph":  graphchartc6ae2d6bd7b5  
+})
+var highlightchartc6ae2d6bd7b5 = new Rickshaw.Graph.Behavior.Series.Highlight({
+ "graph":  graphchartc6ae2d6bd7b5 ,
+"legend":  legendchartc6ae2d6bd7b5  
+})
+
+  
+  graphchartc6ae2d6bd7b5.render();
+  
+</script> 
+    
+  </body>
+</html>
