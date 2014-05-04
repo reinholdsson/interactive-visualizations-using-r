@@ -16,6 +16,7 @@ library(rCharts)
 library(rMaps)
 library(lubridate)
 library(googleVis)
+library(RJSONIO)
 options(rcharts.show.mode = "iframe")
 knitr::opts_chunk$set(comment = NA, results = 'asis', tidy = F, message = F, cache = F)
 ```
